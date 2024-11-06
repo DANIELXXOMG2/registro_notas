@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    /* background: url(https://t1.ea.ltmcdn.com/es/posts/9/8/2/15_animales_polinizadores_caracteristicas_y_ejemplos_24289_orig.jpg);
+    background-size: cover;
+    background-attachment: fixed; */
+    background-color: #0d1b2a;
+    font-family: Raleway;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    color: white;
+    width: 100%;
+    cursor: url(/front/img/cursor.png) -20 10, auto;
+}
+.linea {
+    width: 90%;
+}
+a, button, #submit {
+    cursor: url(/front/img/bee--pointer.png) -20 10, auto;
+}
+input {
+    cursor: url(/front/img/escarabajo--pointer.png), auto;
+}
+header {
+    width: 95%;
+}
+nav {
+    transition: 1s;
+    background-color: #1b263b;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    border-radius: 10px;
+}
+nav h1 {
+    font-size: 100%;
+    margin: 0.1% 25%;
+    width: 60%;
+    transition: 1s;
+    font-size: 25px;
+    color: white;
+}
+nav .user {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    transition: all 1s;
+    margin-left: 10px;
+    color: white;
+}
+nav .user p {
+    margin: 0 ;
+}
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    transition: 1s;
+    font-weight: 500    ;
+    font-size: 15px;
+    border-left: 1px solid white;
+    padding: 15px;
+}
+nav a:hover {
+    background-color: black;
+    color: whitesmoke;
+}
+main {
+    width: 100%;
+    margin: auto;
+    background-color: #90e1ef50;
+}
+.container {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    padding: 20px;
+    transition: 1s;
+    border-radius: 20px;
+    background-color: #001d3d;
+}
+.container:hover {
+    width: 31%;
+}
+.container img {
+    width: 6rem;
+    transition: 1s;
+    margin-bottom: 10px;
+}
+form {
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+    background-color: #202020;
+    border-radius: 8px;
+    border: 3px solid #778da9;
+    transition: 1s;
+}
+form h2, input, img {
+    transition: all 1s;
+    margin-bottom: 0;
+}
+form input {
+    font-size: 12px;
+    width: 70%;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+form input:hover {
+    color: white;
+    background-color: #d8e2dc;
+}
+form a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    transition: 0.7s;
+    margin-bottom: 10px;
+    width: 70%;
+}
+form a:hover {
+    background-color: #202222;
+}
+form button{
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 45%;
+        transition: 1s;
+        border-radius: 8px;
+        background-color: #1b263b;
+        margin: 0 0 20px 0;
+        font-size: 13px;
+}
+form button:hover {
+    width: 40%;
+    background-color: white;
+    color: black;
+}
+#password {
+    margin: 0 0 1rem 0;
+}
+pre {
+    margin: 0;
+}
+footer p {
+        margin: 0 0 5px 0;
+}
+.ico img {
+    border-radius: 50%;
+    border: 5px solid blue;
+}
