@@ -10,7 +10,7 @@ def inicializar_bd():
         conexion = mysql.connector.connect(
             host='localhost',
             user='root',
-            password=''
+            password='40334277'
         )
         
         if conexion.is_connected():
@@ -86,7 +86,7 @@ def login():
             conexion = mysql.connector.connect(
                 host='localhost',
                 user='root',
-                password='',
+                password='40334277',
                 database='Proyecto_notas'
             )
             if conexion.is_connected():
@@ -133,6 +133,24 @@ def register():
 # @app.route('/login')
 # def login():
 #     return render_template('login.html')  
+
+
+# Usuarios
+@app.route('/administrador')
+def administrador():
+    return render_template('administrador.html')  
+
+@app.route('/profesor')
+def profesor():
+    return render_template('profesor.html')  
+
+@app.route('/estudiante')
+def estudiante():
+    return render_template('estudiante.html')  
+
+
+
+
 
 @app.route('/categorias')
 def categorias():
