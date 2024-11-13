@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias | Plataforma Notas</title>
+    <link rel="stylesheet" href="/front/style/style.css">
+    <link rel="shortcut icon" href="/front/img/descarga.jpg" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/front/fontawesome-free-6.6.0-web/css/all.css  ">
+</head>
+<body>
+    <header>
+        <nav>
+        <div class="user">
+            <p title="Sesion iniciada con:">
+                <i class="fa-regular fa-user"></i>
+                danielxxomg
+            </p>
+        </div>
+            <h1>
+                PLATAFORMA NOTAS
+            </h1>
+            <a href="{{ url_for('index') }}">
+                Inicio
+            </a>
+            <a href="{{ url_for('categorias') }}">
+                Categorías
+            </a>
+            <a href="{{ url_for('contacto') }}">
+                Contacto
+            </a>
+            <a href="{{ url_for('sobre') }}">
+                Sobre
+            </a>
+        </nav>
+    </header>
+<div class="container">
+    <h2>Notas</h2>
+    <div>
+        <div class="nota">
+            <h3>Nota Registrada</h3>
+            <p>Descripción de la nota 1</p>
+            <b>
+                <a href="nota" target="_blank" title="Dale click">Nota</a>
+            </b>
+        </div>
+        <div class="nota">
+            <h3>Nota Registrada</h3>
+            <p>Descripción de la nota 2</p>
+            <b>
+                <a href="nota" target="_blank" title="Dale click">Nota</a>
+            </b>
+        </div>
+        <div class="nota">
+            <h3>Nota Registrada</h3>
+            <p>Descripción de la nota 3</p>
+            <b>
+                <a href="nota" target="_blank" title="Dale click">Nota</a>
+            </b>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>   
+<hr class="linea">    
+    <footer>
+        <p>© 2024 Plataforma Notas</p>
+    </footer>
+</body>
+</html>

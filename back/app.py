@@ -10,7 +10,7 @@ def inicializar_bd():
         conexion = mysql.connector.connect(
             host='localhost',
             user='root',
-            password=''
+            password='40334277'
         )
         
         if conexion.is_connected():
@@ -58,7 +58,7 @@ def registrar_usuario_en_bd(Nombre, Email, Password_, Rol):
         conexion = mysql.connector.connect(
             host='localhost',
             user='root',
-            password='',
+            password='40334277',
             database='Proyecto_notas'
         )
         if conexion.is_connected():
