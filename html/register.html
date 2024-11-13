@@ -41,13 +41,16 @@
     <img src="/front/img/user.png" alt="Tus credenciales" title="Tus credenciales"> <br>
 
                 <label for="nombre">Tu Usuario</label><br>
-                    <input class="white" type="text" name="nombre" id="nombre" placeholder="Ingresa tu user aqui" required> <br>
+                    <input class="white" type="text" name="Nombre" id="Nombre" placeholder="Ingresa tu user aqui" required> <br>
 
                 <label for="email">Tu Correo</label> <br>
-                    <input type="email" name="email" id="email" placeholder="Ingresa tu email aqui" required> <br>
+                    <input type="email" name="Email" id="Email" placeholder="Ingresa tu email aqui" required> <br>
+                
+                <label for="password_">Rol</label> <br>
+                    <input type="text" name="Rol" id="Rol" placeholder="Ingresar rol aqui" required> <br>
                 
                 <label for="password_">Contraseña</label> <br>
-                    <input type="password" name="password_" id="password_" placeholder="Ingresa tu contraseña aqui" required> <br>
+                    <input type="password" name="Password_" id="Password_" placeholder="Ingresa tu contraseña aqui" required> <br>
 
                 <button id="submit" type="submit">Registrate</button>
                 <a href="{{ url_for('login') }}">Login</a>

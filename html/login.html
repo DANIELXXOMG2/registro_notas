@@ -3,59 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Plataforma Notas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='img/teacher-icon.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/fontawesome-free-6.6.0-web/css/all.css') }}">  
+    <title>Menu Principal | Plataforma Notas</title>
+    <link rel="stylesheet" href="/front/style/style.css">
+    <link rel="shortcut icon" href="/front/img/descarga.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="/front/fontawesome-free-6.6.0-web/css/all.css">
 </head>
-<body><header>
-    <nav>
-    <div class="user">
-        <p title="Sesion iniciada con:">
-            <i class="fa-regular fa-user"></i>
-            danielxxomg
-        </p>
-    </div>
-        <h1>
-            PLATAFORMA NOTAS
-        </h1>
-        <a href="{{ url_for('index') }}">
-            Inicio
-        </a>
-        <a href="{{ url_for('categorias') }}">
-            Categorías
-        </a>
-        <a href="{{ url_for('contacto') }}">
-            Contacto
-        </a>
-        <a href="{{ url_for('sobre') }}">
-            Sobre
-        </a>
-    </nav>
-</header>
-<main>
-    <div class="container">
-        <form action="/registrar_usuario" method="post">
-                <h2>Login</h2> <br>
-                <img src="/front/img/user.png" alt="Tus credenciales" title="Tus credenciales"> <br>
+<body> 
+    <header>
+        <main>
+        <nav>
+        <div class="user">
+            {% if 'user' in session %}
+                <p title="Sesion iniciada con:">
+                    <i class="fa-regular fa-user"></i>
+                    {{ session['user'] }}
+                </p>
+                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            {% else %}
+                <p>Inicia sesión</p>
+            {% endif %}
+        </div>
+            <h1>
+                PLATAFORMA NOTAS
+            </h1>
+            <a href="{{ url_for('index') }}">
+                Inicio
+            </a>
+            <a href="{{ url_for('categorias') }}">
+                Categorías
+            </a>
+            <a href="{{ url_for('contacto') }}">
+                Contacto
+            </a>
+            <a href="{{ url_for('sobre') }}">
+                Sobre
+            </a>
+        </nav>
+    </header>
+<div class="container">
+    <form action="{{ url_for('login') }}" method="post">
+        <h2>Login</h2> <br>
+        <img src="{{ url_for('static', filename='img/user.png') }}" alt="Tus credenciales" title="Tus credenciales"> <br>
 
-                <label for="nombre">Tu Usuario</label><br>
-                    <input type="text" name="nombre" id="nombre" placeholder="Ingresa tu user aqui" required> <br>
+        <label for="email">Tu Correo</label> <br>
+        <input type="email" name="email" id="email" placeholder="Ingresa tu email aqui" required> <br>
+        
+        <label for="password_">Contraseña</label> <br>
+        <input type="password" name="password_" id="password_" placeholder="Ingresa tu contraseña aqui" required> <br>
 
-                <label for="email">Tu Correo</label> <br>
-                    <input type="email" name="email" id="email" placeholder="Ingresa tu email aqui" required> <br>
-                
-                <label for="password_">Contraseña</label> <br>
-                    <input type="password" name="password_" id="password_" placeholder="Ingresa tu contraseña aqui" required> <br>
-
-                    <button id="submit" type="submit">Entrar</button>
-                    <a href="{{ url_for('register') }}">Volver a Registro</a>
-        </form>
-    </div> 
-</main>   
+        <button id="submit" type="submit">Entrar</button>
+        <a href="{{ url_for('register') }}">Volver a Registro</a>
+    </form>
+</div>    
+</main>
 <hr class="linea">    
-<footer>
-    <p>© 2024 Plataforma Notas</p>
-</footer>
+    <footer>
+        <p>© 2024 Plataforma Notas</p>
+    </footer>
 </body>
 </html>
