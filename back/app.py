@@ -10,7 +10,7 @@ def inicializar_bd():
         conexion = mysql.connector.connect(
             host='localhost',
             user='root',
-            password='40334277'
+            password=''
         )
         
         if conexion.is_connected():
@@ -86,7 +86,7 @@ def login():
             conexion = mysql.connector.connect(
                 host='localhost',
                 user='root',
-                password='40334277',
+                password='',
                 database='Proyecto_notas'
             )
             if conexion.is_connected():
@@ -97,7 +97,13 @@ def login():
                 if user:
                     session['user'] = user[0]
                     session['rol'] = user[1]
-                    return redirect(url_for('index'))
+
+                    if user[1] == 'administrador':
+                        return redirect(url_for('administrador'))
+                    elif user[1] == 'docente':
+                        return redirect(url_for('profesor'))
+                    elif user[1] == 'estudiante':
+                        return redirect(url_for('estudiante'))
                 else:
                     flash("Credenciales incorrectas", "error")
         except Error as e:
@@ -146,7 +152,7 @@ def profesor():
 
 @app.route('/estudiante')
 def estudiante():
-    return render_template('estudiante.html')  
+    return render_template('docente.html')  
 
 
 
