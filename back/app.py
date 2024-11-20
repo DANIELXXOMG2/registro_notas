@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import mysql.connector
 from mysql.connector import Error
 
+
 app = Flask(__name__, template_folder="../front/html", static_folder="../front")
 app.secret_key = 'mi_clave_secreta' 
 
@@ -9,14 +10,19 @@ def obtener_conexion():
     return mysql.connector.connect(
         host='localhost',
         user='root',
-        password='40334277',  #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
+        password='',                                #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
         database='Proyecto_notas'
     )
 
 
+
 def inicializar_bd():
     try:
-        conexion = obtener_conexion()
+        conexion = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',                             #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
+        )
         
         if conexion.is_connected():
             cursor = conexion.cursor()
@@ -75,6 +81,31 @@ def inicializar_bd():
                     FOREIGN KEY (ID_materia) REFERENCES Materias(ID_materia) ON DELETE CASCADE
                 );
             """)
+            
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Actividades (
+                    ID_actividad INT PRIMARY KEY AUTO_INCREMENT,
+                    ID_docente INT,
+                    ID_materia INT,
+                    Titulo VARCHAR(255) NOT NULL,
+                    Descripcion TEXT,
+                    Fecha DATE,
+                    FOREIGN KEY (ID_docente) REFERENCES Usuarios(ID_usuario) ON DELETE CASCADE,
+                    FOREIGN KEY (ID_materia) REFERENCES Materias(ID_materia) ON DELETE CASCADE
+                );
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Calificaciones (
+                    ID_calificacion INT PRIMARY KEY AUTO_INCREMENT,
+                    ID_estudiante INT,
+                    ID_actividad INT,
+                    Calificacion DECIMAL(5,2),
+                    FOREIGN KEY (ID_estudiante) REFERENCES Usuarios(ID_usuario) ON DELETE CASCADE,
+                    FOREIGN KEY (ID_actividad) REFERENCES Actividades(ID_actividad) ON DELETE CASCADE
+                );
+            """)
+
 
             cursor.execute("SELECT * FROM Usuarios WHERE Rol = 'administrador'")
             administrador_existe = cursor.fetchone()
@@ -100,6 +131,78 @@ def inicializar_bd():
             conexion.close()
             print("Conexión a la base de datos cerrada.")
 
+#---------------------------------DB---------------------------------
+
+@app.route('/docente_dashboard')
+def docente_dashboard():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    docente_id = session['user_id']
+    print("ID del docente en sesión:", session.get('user_id'))
+
+    try:
+        # Conectar a la base de datos
+        conexion = obtener_conexion()
+        query = """
+            SELECT m.Nombre 
+            FROM Materias m
+            JOIN Materias_Docente me ON m.ID_materia = me.ID_materia
+            WHERE me.ID_docente = %s
+        """
+        with conexion.cursor() as cursor:
+            cursor.execute(query, (docente_id,))
+            materias = cursor.fetchall()
+
+        # Extraer solo los nombres de las materias
+        materias_nombres = [materia[0] for materia in materias]
+        print("Nombres de las materias:", materias_nombres)
+    except Error as e:
+        print("Error al obtener las materias:", e)
+        materias_nombres = []
+
+    finally:
+        if conexion.is_connected():
+            conexion.close()
+
+    return render_template('docente.html', materias=materias_nombres)
+
+
+@app.route('/estudiante_dashboard')
+def estudiante_dashboard():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    estudiante_id = session['user_id']
+    print("ID del estudiante en sesión:", session.get('user_id'))
+
+    try:
+        # Conectar a la base de datos
+        conexion = obtener_conexion()
+        query = """
+            SELECT m.Nombre 
+            FROM Materias m
+            JOIN Materias_Estudiante me ON m.ID_materia = me.ID_materia
+            WHERE me.ID_estudiante = %s
+        """
+        with conexion.cursor() as cursor:
+            cursor.execute(query, (estudiante_id,))
+            materias = cursor.fetchall()
+
+        # Extraer solo los nombres de las materias
+        materias_nombres = [materia[0] for materia in materias]
+        print("Nombres de las materias:", materias_nombres)
+    except Error as e:
+        print("Error al obtener las materias:", e)
+        materias_nombres = []
+
+    finally:
+        if conexion.is_connected():
+            conexion.close()
+
+    return render_template('estudiante.html', materias=materias_nombres)
+
+#------------------------------------------------------------
 
 @app.route('/asignar_materia_estudiante', methods=['GET', 'POST'])
 def asignar_materia_estudiante():
@@ -109,7 +212,7 @@ def asignar_materia_estudiante():
 
         try:
             conexion = obtener_conexion()
-            
+
             if conexion.is_connected():
                 cursor = conexion.cursor()
                 consulta = """
@@ -213,6 +316,11 @@ def estudiante():
 
 #------------------------------------------------------------
 
+
+
+
+#------------------------------------------------------------
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -222,19 +330,21 @@ def login():
             conexion = obtener_conexion()
             if conexion.is_connected():
                 cursor = conexion.cursor()
-                consulta = "SELECT Nombre, Rol FROM Usuarios WHERE Email = %s AND Password_ = %s"
+                consulta = "SELECT ID_usuario, Nombre, Rol FROM Usuarios WHERE Email = %s AND Password_ = %s"
                 cursor.execute(consulta, (email, password))
                 user = cursor.fetchone()
                 if user:
-                    session['user'] = user[0]
-                    session['rol'] = user[1]
+                    # Guardar ID, Nombre y Rol en la sesión
+                    session['user_id'] = user[0]  # ID del usuario
+                    session['user'] = user[1]    # Nombre del usuario
+                    session['rol'] = user[2]     # Rol del usuario
 
-                    if user[1] == 'administrador':
+                    if user[2] == 'administrador':
                         return redirect(url_for('administrador'))
-                    elif user[1] == 'docente':
-                        return redirect(url_for('docente'))
-                    elif user[1] == 'estudiante':
-                        return redirect(url_for('estudiante'))
+                    elif user[2] == 'docente':
+                        return redirect(url_for('docente_dashboard'))
+                    elif user[2] == 'estudiante':
+                        return redirect(url_for('estudiante_dashboard'))
                 else:
                     flash("Credenciales incorrectas", "error")
         except Error as e:
@@ -288,5 +398,6 @@ def register():
 
 
 if __name__ == "__main__":
+    
     inicializar_bd()  #<- Same shit con lo de loguear admin
     app.run(debug=True)

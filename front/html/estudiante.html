@@ -13,7 +13,7 @@
 <header>
     <div class="flex pt-5 pr-5">
         {% if 'user' in session %}
-            <p title="Sesion iniciada con:" class="mx-5">
+        <p title="Sesion iniciada con:" class="mx-5">
                 <i class="fa-regular fa-user"></i>
                 {{ session['user'] }}
             </p>
@@ -22,56 +22,44 @@
             <p>Inicia sesión</p>
         {% endif %}
     </div>
-    <h1>Estudiante Dashboard</h1>
+    <h1>Administrador Dashboard</h1>
     <img src="/front/img/estudianteico.webp" alt="">
     <nav class="mr-5 mb-5">
-        <b>Escuela Ideal</b>
+        <b>Escuela Elegante</b>
         <p>
-            Estudiante
+            Estudiante  
         </p>
     </nav>
-</header> 
+</header>   
 <main>
     <div class="container">
         <h1>Estudiante</h1>
         <div class="container2">
-        <article>
-            <figure>
-                <img src="/assets/img/" alt="Tus materias">
-                <figcaption>
-                    <b class="text-xl">Tus materias</b>
-                </figcaption>
-            </figure>
-        <div class="info-text">
-            <p class="border-0 p-5">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum neque enim nemo odit voluptatem. Sapiente natus accusamus tenetur qui molestiae eum harum hic atque dolores libero ipsam animi cum eveniet quia ad autem ab perferendis officia provident odit omnis, quas quisquam. Cupiditate ipsum tempore est dolor, earum ullam reiciendis ducimus?
-            </p>
-            <p class="info-text-min">
-                Click para ver tus materias!
-                <a href="https://agendasregionales.uniminuto.edu/corredor-ecologico-de-villavicencio/" target="_blank" title="Click para ser redirijido" class="menu1">
-                    <b>&nbsp; Aqui!</b>
-                </a>
-            </p>
-        </div>
-    </article>
-    <article>
-        <figure>
-            <img src="/assets/img/grid-items" alt="Crear actividades">
-            <figcaption>
-                <b class="text-xl">Crear actividades</b>
-            </figcaption>
-        </figure>
-        <div class="info-text">
-            <p class="border-0 p-5">                    
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis veritatis tempora amet voluptatem omnis et sint delectus. Ut cupiditate quae magnam quam facere culpa, molestiae nihil magni, laboriosam, accusantium tenetur optio earum explicabo minus eaque adipisci quis dolorem veniam necessitatibus? Ducimus necessitatibus at magnam aut reiciendis eligendi accusantium et hic?
-            </p>
-            <p class="info-text-min">
-                Click para crear una actividad!
-                <a href="" title="Click para ser redirijido" class="menu1">
-                    <b>&nbsp; Aqui!</b>
-                </a>
-            </div>
-        </article>
+            {% if materias %}
+            <article>
+                <figure>
+                    <img src="/assets/img/materias.jpg" alt="Tus materias">
+                    <figcaption>
+                        <b class="text-xl">Tus materias</b>
+                    </figcaption>
+                </figure>
+                <div class="info-text">
+                    <ul>
+                        {% for materia in materias %}
+                            <li>{{ materia }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p class="info-text-min">
+                        Click para ver tus materias!
+                        <a href="https://agendasregionales.uniminuto.edu/corredor-ecologico-de-villavicencio/" target="_blank" title="Click para ser redirigido" class="menu1">
+                            <b>&nbsp; Aquí!</b>
+                        </a>
+                    </p>
+                </div>
+            </article>
+        {% else %}
+            <p>No tienes materias asignadas actualmente.</p>
+        {% endif %}
         <article>
             <figure>
                 <img src="/assets/img/" alt="Ver mis actividaes">
@@ -94,7 +82,7 @@
             <figure>
                 <img src="/assets/img/" alt="Calificar mis activades">
                 <figcaption>
-                    <b class="text-xl">Calificar mis activades</b>
+                    <b class="text-xl">Ver mis notas</b>
                 </figcaption>
             </figure>
             <div class="info-text">
