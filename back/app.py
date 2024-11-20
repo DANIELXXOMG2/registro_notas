@@ -5,13 +5,18 @@ from mysql.connector import Error
 app = Flask(__name__, template_folder="../front/html", static_folder="../front")
 app.secret_key = 'mi_clave_secreta' 
 
+def obtener_conexion():
+    return mysql.connector.connect(
+        host='localhost',
+        user='root',
+        password='',  #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
+        database='Proyecto_notas'
+    )
+
+
 def inicializar_bd():
     try:
-        conexion = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='40334277'  #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
-        )
+        conexion = obtener_conexion()
         
         if conexion.is_connected():
             cursor = conexion.cursor()
@@ -103,12 +108,8 @@ def asignar_materia_estudiante():
         id_materia = request.form['materia']
 
         try:
-            conexion = mysql.connector.connect(
-                host='localhost',
-                user='root',
-                password='',
-                database='Proyecto_notas'
-            )
+            conexion = obtener_conexion()
+            
             if conexion.is_connected():
                 cursor = conexion.cursor()
                 consulta = """
@@ -125,12 +126,7 @@ def asignar_materia_estudiante():
                 cursor.close()
                 conexion.close()
     try:
-        conexion = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='Proyecto_notas'
-        )
+        conexion = obtener_conexion()
         if conexion.is_connected():
             cursor = conexion.cursor()
 
@@ -160,12 +156,7 @@ def asignar_materia_docente():
         id_materia = request.form['materia']
 
         try:
-            conexion = mysql.connector.connect(
-                host='localhost',
-                user='root',
-                password='',
-                database='Proyecto_notas'
-            )
+            conexion = obtener_conexion()
             if conexion.is_connected():
                 cursor = conexion.cursor()
                 consulta = """
@@ -182,12 +173,7 @@ def asignar_materia_docente():
                 cursor.close()
                 conexion.close()
     try:
-        conexion = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='Proyecto_notas'
-        )
+        conexion = obtener_conexion()
         if conexion.is_connected():
             cursor = conexion.cursor()
 
@@ -224,24 +210,6 @@ def docente():
 def estudiante():
     return render_template('estudiante.html')  
 
-#------------------------------------------------------------
-
-
-@app.route('/categorias')
-def categorias():
-    return render_template('categorias.html')  
-
-@app.route('/contacto')
-def contacto():
-    return render_template('contacto.html')  
-
-@app.route('/reviews')
-def reviews():
-    return render_template('reviews.html')  
-
-@app.route('/sobre')
-def sobre():
-    return render_template('sobre.html')  
 
 #------------------------------------------------------------
 
@@ -251,12 +219,7 @@ def login():
         email = request.form['email']
         password = request.form['password_']
         try:
-            conexion = mysql.connector.connect(
-                host='localhost',
-                user='root',
-                password='40334277',
-                database='Proyecto_notas'
-            )
+            conexion = obtener_conexion()
             if conexion.is_connected():
                 cursor = conexion.cursor()
                 consulta = "SELECT Nombre, Rol FROM Usuarios WHERE Email = %s AND Password_ = %s"
@@ -292,12 +255,7 @@ def logout():
 
 def registrar_usuario_en_bd(Nombre, Email, Password_, Rol):
     try:
-        conexion = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='Proyecto_notas'
-        )
+        conexion = obtener_conexion()
         if conexion.is_connected():
             cursor = conexion.cursor()
             consulta = """
