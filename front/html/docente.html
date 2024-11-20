@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,20 +11,20 @@
 </head>
 <body> 
 <header>
-    <div class="user">
+    <div class="flex pt-5 pr-5">
         {% if 'user' in session %}
-            <p title="Sesion iniciada con:">
+            <p title="Sesion iniciada con:" class="mx-5">
                 <i class="fa-regular fa-user"></i>
                 {{ session['user'] }}
             </p>
-            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            <a href="{{ url_for('logout') }} "><b>Cerrar sesión</b></a>
         {% else %}
             <p>Inicia sesión</p>
         {% endif %}
     </div>
     <h1>Docente Dashboard</h1>
     <img src="/front/img/docenteico.png" alt="">
-    <nav>
+    <nav class="mr-5 mb-5">
         <b>Escuela Ideal</b>
         <p>
             Docente  

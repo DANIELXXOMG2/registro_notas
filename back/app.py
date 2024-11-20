@@ -9,7 +9,7 @@ def obtener_conexion():
     return mysql.connector.connect(
         host='localhost',
         user='root',
-        password='',  #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
+        password='40334277',  #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
         database='Proyecto_notas'
     )
 

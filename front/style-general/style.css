@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    margin: auto;
+    text-align: center;
+    align-items: center;
     background: url(/front/img/notebook.jpg);
     background-size: cover;
     background-attachment: fixed;
     background-color: #0d1b2a;
     font-family: Raleway;
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
     color: white;
-    width: 100%;
     cursor: url(/front/img/cursor.png) -20 10, auto;
 }
 a {
@@ -29,18 +29,15 @@ input {
     cursor: url(/front/img/escarabajo--pointer.png), auto;
 }
 header {
+    width: 95%;
     align-items: end;
     justify-content: end;
     text-align: end;
-    width: 95%;
-}
-header {
-    padding-top: 20px;
     background-color: lightslategray;
 }
 header h1 {
     font-size: 2.8rem;
-    text-align: end;
+    text-align: center;
     margin-right: 30px;
 }
 header img {
@@ -52,85 +49,59 @@ header img {
 }
 header img:hover {
     background-color: rgba(265, 99, 71, 0.8);
-}
-header nav {
+} 
+.menu {
     display: flex;
-    text-align: center;
-    align-items: center;
-    margin: 10px;
-    background-color: rgba(119, 133, 148, 0.605);
-    transition: 1s;
-}
-header nav:hover {
-    background-color: rgba(255, 255, 255, 0.237);
-    color: black;
-}
-header nav b {
-    width: 80%;
-    margin-left: 20px;
-    text-align: start;
-    font-size: 1.8rem;
-    transition: 1s;
-    border-right: 2px solid white;
-}
-header nav b:hover {
-    margin-left: 30px;
-}
-header nav p, header nav a {
-    color: white;
-    font-size: 1.4em;
-    transition: 1s;
-    width: 10%;
-    margin: 15px;
-    text-decoration: none;
-}
-header nav p:hover, header nav a:hover {
-    color: black;
-    margin-top: 18px;
-}
-header nav a i {
-    margin-left: 20px;
-}
-nav {
-    transition: 1s;
-    background-color: #1b263b;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
+    width: 100%;
     border-radius: 10px;
-}
-nav h1 {
-    font-size: 100%;
-    margin: 0.1% 25%;
-    width: 60%;
-    transition: 1s;
-    font-size: 25px;
-    color: white;
-}
-nav .user {
-    width: 15%;
-    display: flex;
     align-items: center;
-    transition: all 1s;
-    margin-left: 10px;
-    color: white;
-}
-nav .user p {
-    margin: 0 ;
-}
-nav a {
-    text-decoration: none;
-    color: white;
     padding: 5px;
+    justify-content: space-between;
+    background-color: rgba(173, 216, 230, 0.498);
     transition: 1s;
-    font-weight: 500    ;
-    font-size: 15px;
-    border-left: 1px solid white;
-    padding: 15px;
 }
-nav a:hover {
-    background-color: black;
-    color: whitesmoke;
+.menu h1 {
+    width: 60%;
+    margin: 0.1% 25%;
+    font-size: 100%;
+    font-size: 25px;
+}
+.menu .user {
+    display: flex;
+    width: 20rem;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0 3px;
+    font-style: italic;
+    color: white;
+    color: black;
+    transition: all 0.7s;
+    text-align: center;
+}
+.menu .user:hover {
+    border-left: 1px solid white; border-right: 1px solid white;
+    border-radius: 40px;
+}
+.menu .user:active {
+    color: white;
+    background-color: rgba(255, 140, 0, 0.208);
+}
+.menu .user p {
+    display: flex;
+    width: 30%;
+    justify-content: space-evenly;
+}
+.menu .user a i {
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+    width: 50%;
+}
+.menu a {
+    display: flex;
+}
+.menu ul {
+    display: flex;
 }
 aside {
     width: 30%;
@@ -145,7 +116,7 @@ main {
     flex-direction: column;
     width: 100%;
     align-items: center;
-    margin: 0;
+    margin: auto;
     padding: 20px;
     color: white;
     background-color: rgba(91, 100, 109, 0.423);
@@ -232,16 +203,10 @@ main h1 {
 .formu fieldset h2 {
     font-size: 1.6rem;
     margin: 10px 0 10px 0;
-    background: linear-gradient(to right, black , white);
-    background-clip: text;
-    color: transparent;
     transition: all 1s;
     text-shadow: none;
 }
 .formu fieldset h2:active {
-    background: linear-gradient(to right, white, black);
-    background-clip: text;
-    color: transparent;
     text-shadow: none;
     padding: 5px;
 }
@@ -308,20 +273,6 @@ main h1 {
     padding: 7px;
     border: none;
 }
-#password {
-    margin: 0 0 1rem 0;
-}
-pre {
-    margin: 0;
-}
-footer p {
-        margin: 0 0 5px 0;
-}
-.ico img {
-    border-radius: 50%;
-    border: 5px solid blue;
-}
-
 .nota {
     background-color: rgba(255, 255, 255, 0.167);
     padding: 20px;
@@ -398,4 +349,23 @@ footer p {
 .info-text-min:hover {
     background-color: #202020;
     color: white;
+}
+.select {
+    display: flex;
+    width: 75%;
+    justify-content: space-evenly;
+    margin: 10px 0;
+}
+#password {
+    margin: 0 0 1rem 0;
+}
+pre {
+    margin: 0;
+}
+footer p {
+    margin: 0 0 5px 0;
+}
+.ico img {
+    border-radius: 50%;
+    border: 5px solid blue;
 }

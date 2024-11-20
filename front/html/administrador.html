@@ -1,46 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador | Plataforma Notas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style-general/administrador.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-general/style.css') }}"> 
     <link rel="shortcut icon" href="/front/img/administradorico.webp" type="image/x-icon">
     <link rel="stylesheet" href="/front/fontawesome-free-6.6.0-web/css/all.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body> 
+<body class="bg-none bg-blue-950 bg-opacity-95"> 
 <header>
-    <div class="user">
+    <div class="flex pt-5 pr-5">
         {% if 'user' in session %}
-            <p title="Sesion iniciada con:">
+            <p title="Sesion iniciada con:" class="mx-5">
                 <i class="fa-regular fa-user"></i>
                 {{ session['user'] }}
             </p>
-            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            <a href="{{ url_for('logout') }} "><b>Cerrar sesión</b></a>
         {% else %}
             <p>Inicia sesión</p>
         {% endif %}
     </div>
     <h1>Administrador Dashboard</h1>
     <img src="/front/img/administradorico.webp" alt="">
-    <nav>
-        <b>Escuela Elegante</b>
+    <nav class="mr-5 mb-5">
+        <b>Escuela Ideal</b>
         <p>
-            Administrador  
+            Administrador
         </p>
     </nav>
-</header>   
+</header> 
 
-<!-- Contenedor de los botones -->
-<div class="button-container">
-    <a href="{{ url_for('register') }}">
+<div class="flex justify-between gap-5 bg-blue-900 bg-opacity-40 my-5">
+    <a href="{{ url_for('register') }}" class="border-2 border-white p-2 hover:bg-blue-900 bg-opacity-65">
         <button class="btn">Registrar Usuarios</button>
     </a>
-    <a href="{{ url_for('asignar_materia_estudiante') }}">
+    <a href="{{ url_for('asignar_materia_estudiante') }}" class="border-2 border-white p-2 hover:bg-blue-900 bg-opacity-65">
         <button class="btn">Asignar Materias a Estudiante</button>
     </a>
-    <a href="{{ url_for('asignar_materia_docente') }}">
+    <a href="{{ url_for('asignar_materia_docente') }}" class="border-2 border-white p-2 hover:bg-blue-900 bg-opacity-65">
         <button class="btn">Asignar Materias a Docente</button>
     </a>
 </div>

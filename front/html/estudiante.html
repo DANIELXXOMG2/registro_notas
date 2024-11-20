@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador | Plataforma Notas</title>
+    <title>Estudiante | Plataforma Notas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style-general/style.css') }}">
     <link rel="shortcut icon" href="/front/img/estudianteico.webp" type="image/x-icon">
     <link rel="stylesheet" href="/front/fontawesome-free-6.6.0-web/css/all.css  ">
@@ -11,26 +11,26 @@
 </head>
 <body> 
 <header>
-    <div class="user">
+    <div class="flex pt-5 pr-5">
         {% if 'user' in session %}
-            <p title="Sesion iniciada con:">
+            <p title="Sesion iniciada con:" class="mx-5">
                 <i class="fa-regular fa-user"></i>
                 {{ session['user'] }}
             </p>
-            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            <a href="{{ url_for('logout') }} "><b>Cerrar sesión</b></a>
         {% else %}
             <p>Inicia sesión</p>
         {% endif %}
     </div>
     <h1>Estudiante Dashboard</h1>
     <img src="/front/img/estudianteico.webp" alt="">
-    <nav>
+    <nav class="mr-5 mb-5">
         <b>Escuela Ideal</b>
         <p>
-            Estudiante  
+            Estudiante
         </p>
     </nav>
-</header>   
+</header> 
 <main>
     <div class="container">
         <h1>Estudiante</h1>

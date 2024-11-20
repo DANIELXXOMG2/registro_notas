@@ -5,19 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | Plataforma Notas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style-general/style.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='img/teacher-icon.png') }}" type="image/x-icon"> 
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/escuelaico   .png') }}" type="image/x-icon"> 
     <link rel="stylesheet" href="{{ url_for('static', filename='/fontawesome-free-6.6.0-web/css/all.css') }}"> 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<header>
-    <nav>
-        <div class="user">
-            <p title="Sesion iniciada con:">
-                <i class="fa-regular fa-user"></i>
-                danielxxomg
-            </p>
-        </div>
+<header>    
+<nav class="menu">
+    <div class="user">
+            <p title="Tu Usuario" class="text-sm">
+                <a href="">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+                <!-- <a href="" class=" text-lg text-red-600 hover:text-red-900" title="Cerrar sesión">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a> Aqui va el else para el logout -->
+            <!-- </p>
+            <p  class="text-sm">
+                <a href="">Tu Usuario</a>
+            </p> -->
+    </div>
         <h1>
             PLATAFORMA NOTAS
         </h1>
