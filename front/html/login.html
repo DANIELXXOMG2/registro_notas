@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Principal | Plataforma Notas</title>
-    <link rel="stylesheet" href="/front/style/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-general/style.css') }}">
     <link rel="shortcut icon" href="/front/img/descarga.jpg" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/front/fontawesome-free-6.6.0-web/css/all.css">
 </head>
 <body> 
     <header>
-        <main>
         <nav>
         <!-- <div class="user">
             {% if 'user' in session %}
@@ -27,20 +26,12 @@
             <h1>
                 PLATAFORMA NOTAS
             </h1>
-            <a href="{{ url_for('index') }}">
-                Inicio
-            </a>
-            <a href="{{ url_for('categorias') }}">
-                Categorías
-            </a>
-            <a href="{{ url_for('contacto') }}">
-                Contacto
-            </a>
-            <a href="{{ url_for('sobre') }}">
-                Sobre
             </a>
         </nav>
     </header>
+
+
+<main>
 <div class="container">
     <form action="{{ url_for('login') }}" method="post">
         <h2>Login</h2> <br>
