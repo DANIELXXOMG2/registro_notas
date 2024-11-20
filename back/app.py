@@ -32,19 +32,24 @@ def inicializar_bd():
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Materias (
                     ID_materia INT PRIMARY KEY AUTO_INCREMENT,
-                    Nombre VARCHAR(255) NOT NULL,
+                    Nombre VARCHAR(255) NOT NULL,   
                     Descripcion TEXT
                 );
             """)
 
-            cursor.execute("""
-                INSERT INTO Materias (Nombre, Descripcion)
-                VALUES
-                ('Calculo', 'Materia de calculo'),
-                ('Programacion', 'Materia de programacion'),
-                ('Física', 'Materia de Física Básica'),
-                ('Bases de datos', 'Materia de bases de datos');
-            """)
+            cursor.execute("SELECT COUNT(*) FROM Materias")
+            materias_existentes = cursor.fetchone()[0]
+
+            if materias_existentes == 0:
+                cursor.execute("""
+                    INSERT INTO Materias (Nombre, Descripcion)
+                    VALUES
+                    ('Calculo', 'Materia de calculo'),
+                    ('Programacion', 'Materia de programacion'),
+                    ('Física', 'Materia de Física Básica'),
+                    ('Bases de datos', 'Materia de bases de datos');
+                """)
+                conexion.commit()
 
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Materias_Estudiante (
@@ -52,6 +57,16 @@ def inicializar_bd():
                     ID_estudiante INT,
                     ID_materia INT,
                     FOREIGN KEY (ID_estudiante) REFERENCES Usuarios(ID_usuario) ON DELETE CASCADE,
+                    FOREIGN KEY (ID_materia) REFERENCES Materias(ID_materia) ON DELETE CASCADE
+                );
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Materias_Docente (
+                    ID_materia_docente INT PRIMARY KEY AUTO_INCREMENT,
+                    ID_docente INT,
+                    ID_materia INT,
+                    FOREIGN KEY (ID_docente) REFERENCES Usuarios(ID_usuario) ON DELETE CASCADE,
                     FOREIGN KEY (ID_materia) REFERENCES Materias(ID_materia) ON DELETE CASCADE
                 );
             """)
@@ -81,13 +96,118 @@ def inicializar_bd():
             print("Conexión a la base de datos cerrada.")
 
 
-@app.route('/asignar_materia_estudiante')
+@app.route('/asignar_materia_estudiante', methods=['GET', 'POST'])
 def asignar_materia_estudiante():
-    return render_template('asignar_materia_estudiante.html')
+    if request.method == 'POST':
+        id_estudiante = request.form['estudiante']
+        id_materia = request.form['materia']
 
-@app.route('/asignar_materia_docente')
+        try:
+            conexion = mysql.connector.connect(
+                host='localhost',
+                user='root',
+                password='',
+                database='Proyecto_notas'
+            )
+            if conexion.is_connected():
+                cursor = conexion.cursor()
+                consulta = """
+                INSERT INTO Materias_Estudiante (ID_estudiante, ID_materia)
+                VALUES (%s, %s)
+                """
+                cursor.execute(consulta, (id_estudiante, id_materia))
+                conexion.commit()
+                flash("Materia asignada con éxito", "success")
+        except Error as e:
+            flash("Error al asignar materia: " + str(e), "error")
+        finally:
+            if conexion.is_connected():
+                cursor.close()
+                conexion.close()
+    try:
+        conexion = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database='Proyecto_notas'
+        )
+        if conexion.is_connected():
+            cursor = conexion.cursor()
+
+            # Obtener estudiantes
+            cursor.execute("SELECT ID_usuario, Nombre FROM Usuarios WHERE Rol = 'estudiante'")
+            estudiantes = cursor.fetchall()
+            print(estudiantes)
+
+            # Obtener materias
+            cursor.execute("SELECT ID_materia, Nombre FROM Materias")
+            materias = cursor.fetchall()
+            print(materias)
+
+            return render_template('asignar_materia_estudiante.html', estudiantes=estudiantes, materias=materias)
+    except Error as e:
+        flash("Error al cargar datos: " + str(e), "error")
+    finally:
+        if conexion.is_connected():
+            cursor.close()
+            conexion.close()
+
+
+@app.route('/asignar_materia_docente', methods=['GET', 'POST'])
 def asignar_materia_docente():
-    return render_template('asignar_materia_docente.html')
+    if request.method == 'POST':
+        id_docente = request.form['docente']
+        id_materia = request.form['materia']
+
+        try:
+            conexion = mysql.connector.connect(
+                host='localhost',
+                user='root',
+                password='',
+                database='Proyecto_notas'
+            )
+            if conexion.is_connected():
+                cursor = conexion.cursor()
+                consulta = """
+                INSERT INTO Materias_Docente (ID_docente, ID_materia)
+                VALUES (%s, %s)
+                """
+                cursor.execute(consulta, (id_docente, id_materia))
+                conexion.commit()
+                flash("Materia asignada con éxito", "success")
+        except Error as e:
+            flash("Error al asignar materia: " + str(e), "error")
+        finally:
+            if conexion.is_connected():
+                cursor.close()
+                conexion.close()
+    try:
+        conexion = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database='Proyecto_notas'
+        )
+        if conexion.is_connected():
+            cursor = conexion.cursor()
+
+            # Obtener docentes
+            cursor.execute("SELECT ID_usuario, Nombre FROM Usuarios WHERE Rol = 'docente'")
+            docentes = cursor.fetchall()
+            print(docentes)
+
+            # Obtener materias
+            cursor.execute("SELECT ID_materia, Nombre FROM Materias")
+            materias = cursor.fetchall()
+            print(materias)
+
+            return render_template('asignar_materia_docente.html', docentes=docentes, materias=materias)
+    except Error as e:
+        flash("Error al cargar datos: " + str(e), "error")
+    finally:
+        if conexion.is_connected():
+            cursor.close()
+            conexion.close()
 
 #------------------------------------------------------------
 
