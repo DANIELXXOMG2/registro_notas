@@ -34,6 +34,63 @@ header {
     text-align: end;
     width: 95%;
 }
+header {
+    padding-top: 20px;
+    background-color: lightslategray;
+}
+header h1 {
+    font-size: 2.8rem;
+    text-align: end;
+    margin-right: 30px;
+}
+header img {
+    margin: 0 0 50px 50px;
+    width: 15rem;
+    background-color: darkblue;
+    transition: 2s;
+    border-radius: 10rem;
+}
+header img:hover {
+    background-color: rgba(265, 99, 71, 0.8);
+}
+header nav {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin: 10px;
+    background-color: rgba(119, 133, 148, 0.605);
+    transition: 1s;
+}
+header nav:hover {
+    background-color: rgba(255, 255, 255, 0.237);
+    color: black;
+}
+header nav b {
+    width: 80%;
+    margin-left: 20px;
+    text-align: start;
+    font-size: 1.8rem;
+    transition: 1s;
+    border-right: 2px solid white;
+}
+header nav b:hover {
+    margin-left: 30px;
+}
+header nav p, header nav a {
+    color: white;
+    font-size: 1.4em;
+    transition: 1s;
+    width: 10%;
+    margin: 15px;
+    text-decoration: none;
+}
+header nav p:hover, header nav a:hover {
+    color: black;
+    margin-top: 18px;
+}
+header nav a i {
+    margin-left: 20px;
+}
 nav {
     transition: 1s;
     background-color: #1b263b;
@@ -83,27 +140,33 @@ aside {
     font-style: italic;
     background-color: white;
 }
-
-
 main {
-    width: 100%;
-    margin: auto;
-    background-color: #90e1ef50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;    
+}
+main h1 {
+    background-color: rgba(255, 255, 255, 0.242);
+    font-size: 100%;
+    font-size: 2rem;
+    font-weight: bolder;
+    margin: 0.1% 25%;
+    width: 60%;
+    transition: 1s;
+    color: white;
 }
 .container {
-    margin: auto;
     display: flex;
+    margin: auto;
+    width: 60%;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    width: 30%;
     padding: 20px;
     transition: 1s;
     border-radius: 20px;
-    background-color: #001d3d;
-}
-.container:hover {
-    width: 31%;
+    /* background-color: #001d3d; */
 }
 .container img {
     width: 6rem;
@@ -130,9 +193,9 @@ form input {
     text-align: center;
     padding: 8px;
     margin-bottom: 10px;
+    color: black;
 }
 form input:hover {
-    color: white;
     background-color: #d8e2dc;
 }
 form a {
@@ -185,5 +248,71 @@ footer p {
     background-color: rgba(255, 255, 255, 0.367);
 }
 .nota a {
+    color: white;
+}
+.container2 {
+    display: flex;
+    width: 80%;
+    padding: 30px;
+    background-color: #202020;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    transition: all 1s;
+}
+.container2 fieldset {
+    width: 80%;
+}
+.container2 fieldset, 
+.container2 figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 1s;
+    border: 2px solid white;
+}
+.container2 figure {
+    border: none;
+    border-bottom: 2px solid white;
+}
+.container2 fieldset p {
+    width: 100%;
+    padding: 8px;
+    text-align: center;
+    font-size: 15px;
+}
+.container2 article:nth-child(odd):hover {
+    background-color: rgba(255, 255, 255, 0.149);
+}
+.container2 article {
+    display: grid;
+    width: 70%;
+    margin: auto;
+    justify-items: center;
+    text-align: center;
+    font-family: Faculty Glyphic;
+    background-color: rgba(119, 136, 153, 0.286);
+    transition: all 1s;
+}
+.container2 article p {
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+}
+.container2 article:nth-child(even):hover {
+    background-color: rgba(255, 255, 255, 0.149);
+    background-color: white;
+    color: black;
+}
+.info-text-min {
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease;
+    background-color: white;
+    color: black;
+}
+.info-text-min:hover {
+    background-color: #202020;
     color: white;
 }
