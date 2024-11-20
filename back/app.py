@@ -10,7 +10,7 @@ def inicializar_bd():
         conexion = mysql.connector.connect(
             host='localhost',
             user='root',
-            password=''
+            password=''                         #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
         )
         
         if conexion.is_connected():
@@ -28,6 +28,27 @@ def inicializar_bd():
                     Rol ENUM('administrador', 'docente', 'estudiante') NOT NULL
                 );
             """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Materias_Estudiante (
+                    ID_materia_estudiante INT PRIMARY KEY AUTO_INCREMENT,
+                    ID_estudiante INT,
+                    ID_materia INT,
+                    FOREIGN KEY (ID_estudiante) REFERENCES Usuarios(ID_usuario) ON DELETE CASCADE,
+                    FOREIGN KEY (ID_materia) REFERENCES Materias(ID_materia) ON DELETE CASCADE
+                );
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Materias_Estudiante (
+                    ID_materia_estudiante INT PRIMARY KEY AUTO_INCREMENT,
+                    ID_estudiante INT,
+                    ID_materia INT,
+                    FOREIGN KEY (ID_estudiante) REFERENCES Usuarios(ID_usuario) ON DELETE CASCADE,
+                    FOREIGN KEY (ID_materia) REFERENCES Materias(ID_materia) ON DELETE CASCADE
+                );
+            """)
+
             cursor.execute("SELECT * FROM Usuarios WHERE Rol = 'administrador'")
             administrador_existe = cursor.fetchone()
 
@@ -61,39 +82,41 @@ def asignar_materia_estudiante():
 def asignar_materia_docente():
     return render_template('asignar_materia_docente.html')
 
-def registrar_usuario_en_bd(Nombre, Email, Password_, Rol):
-    try:
-        conexion = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='Proyecto_notas'
-        )
-        if conexion.is_connected():
-            cursor = conexion.cursor()
-            consulta = """
-            INSERT INTO Usuarios (nombre, email, password_, rol)
-            VALUES (%s, %s, %s ,%s)
-            """
-            cursor.execute(consulta, (Nombre, Email, Password_, Rol))
-            conexion.commit()
-            print("Usuario registrado con éxito.")
-    except Error as e:
-        print("Error al registrar el usuario:", e)
-    finally:
-        if conexion.is_connected():
-            cursor.close()
-            conexion.close()
+#------------------------------------------------------------
 
-@app.route('/registrar_usuario', methods=['GET', 'POST'])
-def registrar_usuario():
-    Nombre= request.form['Nombre']
-    Email = request.form['Email']
-    Rol= request.form['Rol']
-    Password_ = request.form['Password_']
-    
-    registrar_usuario_en_bd(Nombre, Email, Password_, Rol)
-    return redirect(url_for('administrador'))
+# Usuarios
+@app.route('/administrador')
+def administrador():
+    return render_template('administrador.html')  
+
+@app.route('/docente')
+def docente():
+    return render_template('docente.html')  
+
+@app.route('/estudiante')
+def estudiante():
+    return render_template('estudiante.html')  
+
+#------------------------------------------------------------
+
+
+@app.route('/categorias')
+def categorias():
+    return render_template('categorias.html')  
+
+@app.route('/contacto')
+def contacto():
+    return render_template('contacto.html')  
+
+@app.route('/reviews')
+def reviews():
+    return render_template('reviews.html')  
+
+@app.route('/sobre')
+def sobre():
+    return render_template('sobre.html')  
+
+#------------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -138,62 +161,45 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-# Ruta principal
-# @app.route('/index')
-# def index():
-#     if 'user' in session:
-#         return render_template('index.html')
-#     else:
-#         return redirect(url_for('login'))
+#------------------------------------------------------------
 
+def registrar_usuario_en_bd(Nombre, Email, Password_, Rol):
+    try:
+        conexion = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database='Proyecto_notas'
+        )
+        if conexion.is_connected():
+            cursor = conexion.cursor()
+            consulta = """
+            INSERT INTO Usuarios (nombre, email, password_, rol)
+            VALUES (%s, %s, %s ,%s)
+            """
+            cursor.execute(consulta, (Nombre, Email, Password_, Rol))
+            conexion.commit()
+            print("Usuario registrado con éxito.")
+    except Error as e:
+        print("Error al registrar el usuario:", e)
+    finally:
+        if conexion.is_connected():
+            cursor.close()
+            conexion.close()
 
+@app.route('/registrar_usuario', methods=['GET', 'POST'])
+def registrar_usuario():
+    Nombre= request.form['Nombre']
+    Email = request.form['Email']
+    Rol= request.form['Rol']
+    Password_ = request.form['Password_']
+    
+    registrar_usuario_en_bd(Nombre, Email, Password_, Rol)
+    return redirect(url_for('administrador'))
 
 @app.route('/register')
 def register():
     return render_template('register.html')
-
-# @app.route('/index')
-# def index():
-#     return render_template('index.html')  
-
-# @app.route('/login')
-# def login():
-#     return render_template('login.html')  
-
-
-# Usuarios
-@app.route('/administrador')
-def administrador():
-    return render_template('administrador.html')  
-
-@app.route('/docente')
-def docente():
-    return render_template('docente.html')  
-
-@app.route('/estudiante')
-def estudiante():
-    return render_template('estudiante.html')  
-
-
-
-
-
-@app.route('/categorias')
-def categorias():
-    return render_template('categorias.html')  
-
-@app.route('/contacto')
-def contacto():
-    return render_template('contacto.html')  
-
-@app.route('/reviews')
-def reviews():
-    return render_template('reviews.html')  
-
-@app.route('/sobre')
-def sobre():
-    return render_template('sobre.html')  
-
 
 
 if __name__ == "__main__":
