@@ -106,7 +106,6 @@ def inicializar_bd():
                 );
             """)
 
-
             cursor.execute("SELECT * FROM Usuarios WHERE Rol = 'administrador'")
             administrador_existe = cursor.fetchone()
 
@@ -132,6 +131,112 @@ def inicializar_bd():
             print("Conexión a la base de datos cerrada.")
 
 #---------------------------------DB---------------------------------
+
+@app.route('/crear_actividad', methods=['GET', 'POST'])
+def crear_actividad():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    
+    docente_id = session['user_id']
+
+    # Obtener las materias del docente
+    try:
+        conexion = obtener_conexion()
+        query = """
+            SELECT m.ID_materia, m.Nombre 
+            FROM Materias m
+            JOIN Materias_Docente me ON m.ID_materia = me.ID_materia
+            WHERE me.ID_docente = %s
+        """
+        with conexion.cursor() as cursor:
+            cursor.execute(query, (docente_id,))
+            materias = cursor.fetchall()
+    except Error as e:
+        print("Error al obtener las materias:", e)
+        materias = []
+
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        titulo = request.form['titulo']
+        descripcion = request.form['descripcion']
+        fecha = request.form['fecha']
+        id_materia = request.form['materia']
+
+        # Insertar la nueva actividad en la base de datos
+        try:
+            query = """
+                INSERT INTO Actividades (ID_docente, ID_materia, Titulo, Descripcion, Fecha)
+                VALUES (%s, %s, %s, %s, %s)
+            """
+            with conexion.cursor() as cursor:
+                cursor.execute(query, (docente_id, id_materia, titulo, descripcion, fecha))
+                conexion.commit()
+            flash("Actividad creada exitosamente", "success")
+            return redirect(url_for('docente_dashboard'))
+        except Error as e:
+            print("Error al crear la actividad:", e)
+            flash("Hubo un error al crear la actividad", "error")
+
+    return render_template('crear_actividad.html', materias=materias)
+
+
+@app.route('/calificar_actividad/<int:id_actividad>', methods=['GET', 'POST'])
+def calificar_actividad(id_actividad):
+    if 'user' not in session or session['rol'] != 'docente':
+        return redirect(url_for('login'))
+
+    docente_id = session['user_id']
+    
+    # Obtener información de la actividad y estudiantes asociados
+    try:
+        conexion = obtener_conexion()
+        query = """
+            SELECT a.Titulo, a.Descripcion, a.Fecha, e.ID_estudiante, u.Nombre, c.Calificacion
+            FROM Actividades a
+            LEFT JOIN Calificaciones c ON a.ID_actividad = c.ID_actividad
+            LEFT JOIN Usuarios u ON c.ID_estudiante = u.ID_usuario
+            JOIN Materias m ON a.ID_materia = m.ID_materia
+            WHERE a.ID_actividad = %s AND a.ID_docente = %s
+        """
+        with conexion.cursor() as cursor:
+            cursor.execute(query, (id_actividad, docente_id))
+            estudiantes_actividad = cursor.fetchall()
+            actividad = estudiantes_actividad[0] if estudiantes_actividad else None
+    except Error as e:
+        print("Error al obtener actividades:", e)
+        estudiantes_actividad = []
+        actividad = None
+    finally:
+        if conexion.is_connected():
+            conexion.close()
+
+    if request.method == 'POST':
+        id_estudiante = request.form['estudiante']
+        calificacion = request.form['calificacion']
+
+        try:
+            conexion = obtener_conexion()
+            query = """
+                INSERT INTO Calificaciones (ID_estudiante, ID_actividad, Calificacion)
+                VALUES (%s, %s, %s)
+                ON DUPLICATE KEY UPDATE Calificacion = %s
+            """
+            with conexion.cursor() as cursor:
+                cursor.execute(query, (id_estudiante, id_actividad, calificacion, calificacion))
+                conexion.commit()
+            flash("Calificación actualizada exitosamente", "success")
+            return redirect(url_for('docente_dashboard'))
+        except Error as e:
+            print("Error al actualizar la calificación:", e)
+            flash("Hubo un error al calificar la actividad", "error")
+
+    return render_template('calificar_actividad.html', actividad=actividad, estudiantes=estudiantes_actividad)
+
+
+
+
+
+#------------------------------------------------------------
 
 @app.route('/docente_dashboard')
 def docente_dashboard():
