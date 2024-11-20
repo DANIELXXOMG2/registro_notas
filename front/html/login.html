@@ -29,22 +29,22 @@
             </a>
         </nav>
     </header>
-
-
 <main>
 <div class="container">
-    <form action="{{ url_for('login') }}" method="post">
-        <h2>Login</h2> <br>
-        <img src="{{ url_for('static', filename='img/user.png') }}" alt="Tus credenciales" title="Tus credenciales"> <br>
+    <form action="{{ url_for('login') }}" method="post" class="formu">
+        <fieldset>
+            <h2>Login</h2> <br>
+            <img src="{{ url_for('static', filename='img/user.png') }}" alt="Tus credenciales" title="Tus credenciales"> <br>
 
-        <label for="email">Tu Correo</label> <br>
-        <input type="email" name="email" id="email" placeholder="Ingresa tu email aqui" required> <br>
-        
-        <label for="password_">Contraseña</label> <br>
-        <input type="password" name="password_" id="password_" placeholder="Ingresa tu contraseña aqui" required> <br>
+            <label for="email">Tu Correo</label> <br>
+            <input type="email" name="email" id="email" placeholder="Ingresa tu email aqui" required> <br>
+            
+            <label for="password_">Contraseña</label> <br>
+            <input type="password" name="password_" id="password_" placeholder="Ingresa tu contraseña aqui" required> <br>
 
-        <button id="submit" type="submit">Entrar</button>
-        <a href="{{ url_for('register') }}">Volver a Registro</a>
+            <button id="submit" type="submit">Entrar</button>
+            <a href="{{ url_for('register') }}">Volver a Registro</a>
+        </fieldset>
     </form>
 </div>    
 </main>
