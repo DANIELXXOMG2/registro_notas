@@ -11,6 +11,17 @@
 </head>
 <body> 
 <header>
+    <div class="user">
+        {% if 'user' in session %}
+            <p title="Sesion iniciada con:">
+                <i class="fa-regular fa-user"></i>
+                {{ session['user'] }}
+            </p>
+            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+        {% else %}
+            <p>Inicia sesión</p>
+        {% endif %}
+    </div>
     <h1>Docente Dashboard</h1>
     <img src="/front/img/docenteico.png" alt="">
     <nav>
@@ -18,10 +29,7 @@
         <p>
             Docente  
         </p>
-        <a href="">
-            Log Out
-            <i class="fa-solid fa-right-from-bracket"></i>
-        </a> <!-- Vincular esto para hacer un log out -->
+
     </nav>
 </header>   
 <hr class="linea">    

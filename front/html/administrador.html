@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador | Plataforma Notas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-general/administrador.css') }}"> 
+    <link rel="shortcut icon" href="/front/img/administradorico.webp" type="image/x-icon">
+    <link rel="stylesheet" href="/front/fontawesome-free-6.6.0-web/css/all.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body> 
+<header>
+    <div class="user">
+        {% if 'user' in session %}
+            <p title="Sesion iniciada con:">
+                <i class="fa-regular fa-user"></i>
+                {{ session['user'] }}
+            </p>
+            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+        {% else %}
+            <p>Inicia sesión</p>
+        {% endif %}
+    </div>
+    <h1>Administrador Dashboard</h1>
+    <img src="/front/img/administradorico.webp" alt="">
+    <nav>
+        <b>Escuela Ideal</b>
+        <p>
+            Administrador  
+        </p>
+    </nav>
+</header>   
+
+<!-- Contenedor de los botones -->
+<div class="button-container">
+    <a href="{{ url_for('register') }}">
+        <button class="btn">Registrar Usuarios</button>
+    </a>
+    <a href="{{ url_for('asignar_materia_estudiante') }}">
+        <button class="btn">Asignar Materias a Estudiante</button>
+    </a>
+    <a href="{{ url_for('asignar_materia_docente') }}">
+        <button class="btn">Asignar Materias a Docente</button>
+    </a>
+</div>
+
+<hr class="linea">    
+
+<footer>
+    <p>© 2024 Plataforma Notas</p>
+</footer>
+
+</body>
+</html>

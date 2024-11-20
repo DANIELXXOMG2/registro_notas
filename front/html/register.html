@@ -22,9 +22,6 @@
         <h1>
             PLATAFORMA NOTAS
         </h1>
-        <a href="{{ url_for('index') }}">
-            Inicio
-        </a>
         <a href="{{ url_for('categorias') }}">
             Categorías
         </a>
@@ -42,10 +39,10 @@
                 <h2>Register</h2> <br>
     <img src="/front/img/user.png" alt="Tus credenciales" title="Tus credenciales"> <br>
 
-                <label for="nombre">Tu Usuario</label><br>
+                <label for="nombre">Usuario</label><br>
                     <input class="white" type="text" name="Nombre" id="Nombre" placeholder="Ingresa tu user aqui" required> <br>
 
-                <label for="email">Tu Correo</label> <br>
+                <label for="email">Correo</label> <br>
                     <input type="email" name="Email" id="Email" placeholder="Ingresa tu email aqui" required> <br>
                 
                 <label for="password_">Rol</label> <br>
@@ -55,7 +52,7 @@
                     <input type="password" name="Password_" id="Password_" placeholder="Ingresa tu contraseña aqui" required> <br>
 
                 <button id="submit" type="submit">Registrate</button>
-                <a href="{{ url_for('login') }}">Login</a>
+                <!-- <a href="{{ url_for('login') }}">Login</a> -->
         </form>
     </div> 
 </main>   

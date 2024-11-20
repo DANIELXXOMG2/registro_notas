@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import mysql.connector
 from mysql.connector import Error
 
-app = Flask(__name__, template_folder="../html/", static_folder="../front/")
+app = Flask(__name__, template_folder="../front/html", static_folder="../front")
 app.secret_key = 'mi_clave_secreta' 
 
 def inicializar_bd():
@@ -10,7 +10,7 @@ def inicializar_bd():
         conexion = mysql.connector.connect(
             host='localhost',
             user='root',
-            password='40334277'
+            password=''
         )
         
         if conexion.is_connected():
@@ -53,12 +53,20 @@ def inicializar_bd():
             print("Conexión a la base de datos cerrada.")
 
 
+@app.route('/asignar_materia_estudiante')
+def asignar_materia_estudiante():
+    return render_template('asignar_materia_estudiante.html')
+
+@app.route('/asignar_materia_docente')
+def asignar_materia_docente():
+    return render_template('asignar_materia_docente.html')
+
 def registrar_usuario_en_bd(Nombre, Email, Password_, Rol):
     try:
         conexion = mysql.connector.connect(
             host='localhost',
             user='root',
-            password='40334277',
+            password='',
             database='Proyecto_notas'
         )
         if conexion.is_connected():
@@ -77,7 +85,17 @@ def registrar_usuario_en_bd(Nombre, Email, Password_, Rol):
             cursor.close()
             conexion.close()
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/registrar_usuario', methods=['GET', 'POST'])
+def registrar_usuario():
+    Nombre= request.form['Nombre']
+    Email = request.form['Email']
+    Rol= request.form['Rol']
+    Password_ = request.form['Password_']
+    
+    registrar_usuario_en_bd(Nombre, Email, Password_, Rol)
+    return redirect(url_for('administrador'))
+
+@app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
@@ -101,7 +119,7 @@ def login():
                     if user[1] == 'administrador':
                         return redirect(url_for('administrador'))
                     elif user[1] == 'docente':
-                        return redirect(url_for('profesor'))
+                        return redirect(url_for('docente'))
                     elif user[1] == 'estudiante':
                         return redirect(url_for('estudiante'))
                 else:
@@ -121,14 +139,16 @@ def logout():
     return redirect(url_for('login'))
 
 # Ruta principal
-@app.route('/index')
-def index():
-    if 'user' in session:
-        return render_template('index.html')
-    else:
-        return redirect(url_for('login'))
+# @app.route('/index')
+# def index():
+#     if 'user' in session:
+#         return render_template('index.html')
+#     else:
+#         return redirect(url_for('login'))
 
-@app.route('/')
+
+
+@app.route('/register')
 def register():
     return render_template('register.html')
 
@@ -146,13 +166,13 @@ def register():
 def administrador():
     return render_template('administrador.html')  
 
-@app.route('/profesor')
-def profesor():
-    return render_template('profesor.html')  
+@app.route('/docente')
+def docente():
+    return render_template('docente.html')  
 
 @app.route('/estudiante')
 def estudiante():
-    return render_template('docente.html')  
+    return render_template('estudiante.html')  
 
 
 
@@ -175,15 +195,6 @@ def sobre():
     return render_template('sobre.html')  
 
 
-@app.route('/registrar_usuario', methods=['POST'])
-def registrar_usuario():
-    Nombre= request.form['Nombre']
-    Email = request.form['Email']
-    Rol= request.form['Rol']
-    Password_ = request.form['Password_']
-    
-    registrar_usuario_en_bd(Nombre, Email, Password_, Rol)
-    return redirect(url_for('register'))
 
 if __name__ == "__main__":
     inicializar_bd()  #<- Same shit con lo de loguear admin
