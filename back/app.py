@@ -10,7 +10,7 @@ def inicializar_bd():
         conexion = mysql.connector.connect(
             host='localhost',
             user='root',
-            password=''                         #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
+            password=''  #<---------------------------------- CAMBIAR CONTRASEÑA ----------------------------------
         )
         
         if conexion.is_connected():
@@ -30,13 +30,20 @@ def inicializar_bd():
             """)
 
             cursor.execute("""
-                CREATE TABLE IF NOT EXISTS Materias_Estudiante (
-                    ID_materia_estudiante INT PRIMARY KEY AUTO_INCREMENT,
-                    ID_estudiante INT,
-                    ID_materia INT,
-                    FOREIGN KEY (ID_estudiante) REFERENCES Usuarios(ID_usuario) ON DELETE CASCADE,
-                    FOREIGN KEY (ID_materia) REFERENCES Materias(ID_materia) ON DELETE CASCADE
+                CREATE TABLE IF NOT EXISTS Materias (
+                    ID_materia INT PRIMARY KEY AUTO_INCREMENT,
+                    Nombre VARCHAR(255) NOT NULL,
+                    Descripcion TEXT
                 );
+            """)
+
+            cursor.execute("""
+                INSERT INTO Materias (Nombre, Descripcion)
+                VALUES
+                ('Calculo', 'Materia de calculo'),
+                ('Programacion', 'Materia de programacion'),
+                ('Física', 'Materia de Física Básica'),
+                ('Bases de datos', 'Materia de bases de datos');
             """)
 
             cursor.execute("""
@@ -62,7 +69,7 @@ def inicializar_bd():
             else:
                 print("El administrador ya existe en la base de datos.")
                 
-            print("Base de datos y tabla creadas o verificadas correctamente.")
+            print("Base de datos y tablas creadas o verificadas correctamente.")
     
     except Error as e:
         print("Error al inicializar la base de datos:", e)
