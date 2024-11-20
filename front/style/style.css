@@ -38,7 +38,6 @@ header {
 header h1 {
     font-size: 2.8rem;
     text-align: center;
-    margin-right: 30px;
 }
 header img {
     margin: 0 0 50px 50px;
@@ -64,7 +63,7 @@ header img:hover {
     width: 60%;
     margin: 0.1% 25%;
     font-size: 100%;
-    font-size: 25px;
+    font-size: 2rem;
 }
 .menu .user {
     display: flex;
@@ -220,14 +219,15 @@ main h1 {
     margin-bottom: 10px;
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.482);
-    color: black;
+    color: white;
 }
 .formu fieldset input:hover {
     background-color: white;
     color: black;
 }
 .formu fieldset input:focus {
-    background-color: wheat;
+    background-color: rgb(76, 69, 69);
+    color: white;
 }
 .formu fieldset a {
     width: 70%;
@@ -259,7 +259,8 @@ main h1 {
 }
 .formu fieldset button:hover {
     border-radius: 15px;
-    background-color: green;
+    border: 1px solid white;
+    background-color: rgb(17, 19, 32);
     color: white;
 }
 .formu fieldset button:active {
@@ -354,7 +355,7 @@ main h1 {
     display: flex;
     width: 75%;
     justify-content: space-evenly;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 #password {
     margin: 0 0 1rem 0;

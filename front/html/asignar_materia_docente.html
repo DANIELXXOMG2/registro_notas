@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asignación Docente | Plataforma Notas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style-general/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
     <link rel="shortcut icon" href="/front/img/escuelaico.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/front/fontawesome-free-6.6.0-web/css/all.css">
 </head>
 <!-- <body class="flex flex-col w-screen bg-slate-400 m-auto"> -->
 <body class="bg-none">
-<header>
-    <h1>Sabra Dios</h1>
+<header class="bg-blue-950 border-2 border-white">
+    <h1>Asignacion de Docente</h1>
 </header>
 <main>
-    <form action="{{ url_for('asignar_materia_estudiante') }}" method="POST" class="formu border-2 border-white ">
+    <form action="{{ url_for('asignar_materia_estudiante') }}" method="POST" class="formu border-2 border-white py-10 text-xl w-6/12 hover:w-8/12">
         <div class="select">
             <label for="estudiante">Seleccionar Docente:</label>
             <select name="estudiante" id="estudiante" class="bg-black">
@@ -35,11 +35,6 @@
         <button type="submit" class="bg-slate-900 p-2 mt-2 hover:bg-slate-950">Asignar Materia</button>
     </form>
 
-    <div class="flex flex-col gap-5 bg-slate-800 border-2 border-white my-10 p-8">
-        <b>Asignar Materia</b>
-        <p>Aqui va la materia etcc...</p>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
-    </div>
 </main>
 
 <hr class="linea">    

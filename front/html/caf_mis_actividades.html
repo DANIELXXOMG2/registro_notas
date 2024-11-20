@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Calificaciones</title>
+    <link rel="stylesheet" href="/front/style/style.css"> <!-- Temporal borrarlo cuando se linkee -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}"> 
+    <link rel="shortcut icon" href="/front/img/bookico.png" type="image/x-icon">
+    <link rel="stylesheet" href="/front/fontawesome-free-6.6.0-web/css/all.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Temporal borrarlo cuando se linkee -->
+</head>
+<body class="bg-none">
+    <header class="bg-blue-950 border-2 border-white">
+        <h1>Asignacion de Docente</h1>
+    </header>
+    <main>
+        <form action="{{ url_for('asignar_materia_estudiante') }}" method="POST" class="formu border-2 border-white py-10 text-xl w-6/12 hover:w-8/12">
+            <div class="select bg-white text-black p-2">
+                <label for="estudiante">Actividades: </label>
+                <select name="estudiante" id="estudiante" class="bg-slate-200 px-5">
+                    {% for estudiante in estudiantes %}
+                        <option value="{{ estudiante[0] }}">{{ estudiante[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="select bg-white text-black p-2">
+                <label for="materia">Estudiante:</label>
+                <select name="materia" id="materia" class="bg-slate-200 px-5">
+                    {% for materia in materias %}
+                        <option value="{{ materia[0] }}">{{ materia[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="select bg-white text-black p-2">
+                <label for="materia">Nota:</label>
+                    <input type="number" name="number" id="number" class="w-4/12 bg-slate-200 px-5">
+                    <!-- {% for materia in materias %}
+                    {% endfor %} -->
+                </input>
+            </div>
+            <br>
+            <button type="submit" class="bg-slate-900 p-2 mt-2 hover:bg-slate-950">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Buscar
+            </button>
+        </form>
+    
+    </main>
+    
+    <hr class="linea">    
+        <footer>
+            <p>© 2024 Plataforma Notas</p>
+        </footer>
+    </body>
+    </html>     
