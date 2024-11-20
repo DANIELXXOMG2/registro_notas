@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Actividad | Plataforma Notas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-general/style.css') }}">
+</head>
+<body>
+<header>
+    <h1>Crear Actividad</h1>
+</header>
+<main>
+    <form action="{{ url_for('crear_actividad') }}" method="POST">
+        <label for="materia">Materia:</label>
+        <select name="materia" id="materia" required>
+            {% for materia in materias %}
+                <option value="{{ materia[0] }}">{{ materia[1] }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required><br>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required></textarea><br>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required><br>
+
+        <button type="submit">Crear Actividad</button>
+    </form>
+</main>
+</body>
+</html>

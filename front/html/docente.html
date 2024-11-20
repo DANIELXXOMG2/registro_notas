@@ -25,7 +25,7 @@
     <h1>Docente Dashboard</h1>
     <img src="/front/img/docenteico.png" alt="">
     <nav class="mr-5 mb-5">
-        <b>Escuela Ideal</b>
+        <b>Escuela Elegante</b>
         <p>
             Docente  
         </p>
@@ -35,53 +35,58 @@
     <div class="container">
         <h1>Docente</h1>
         <div class="container2">
+            {% if materias %}
+            <article>
+                <figure>
+                    <!-- <img src="/assets/img/materias.jpg" alt="Tus materias"> -->
+                    <figcaption>
+                        <b class="text-xl">Tus materias</b>
+                    </figcaption>
+                </figure>
+                <div class="info-text"><br>
+                    <ul>
+                        {% for materia in materias %}
+                            <li>{{ materia }}</li>
+                        {% endfor %}
+                    </ul>
+                    <!-- <p class="info-text-min">
+                        Click para ver tus materias!
+                        <a href="https://agendasregionales.uniminuto.edu/corredor-ecologico-de-villavicencio/" target="_blank" title="Click para ser redirigido" class="menu1">
+                            <b>&nbsp; Aquí!</b>
+                        </a>
+                    </p> -->
+                </div>
+            </article>
+        {% else %}
+            <p>No tienes materias asignadas actualmente.</p>
+        {% endif %}
         <article>
             <figure>
-                <img src="/assets/img/" alt="Tus materias">
+                <!-- <img src="/assets/img/grid-items" alt="Crear actividades"> -->
                 <figcaption>
-                    <b class="text-xl">Tus materias</b>
+                    <b class="text-xl">Crear actividades</b>
                 </figcaption>
             </figure>
-        <div class="info-text">
-            <p class="border-0 p-5">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum neque enim nemo odit voluptatem. Sapiente natus accusamus tenetur qui molestiae eum harum hic atque dolores libero ipsam animi cum eveniet quia ad autem ab perferendis officia provident odit omnis, quas quisquam. Cupiditate ipsum tempore est dolor, earum ullam reiciendis ducimus?
-            </p>
-            <p class="info-text-min">
-                Click para ver tus materias!
-                <a href="https://agendasregionales.uniminuto.edu/corredor-ecologico-de-villavicencio/" target="_blank" title="Click para ser redirijido" class="menu1">
-                    <b>&nbsp; Aqui!</b>
-                </a>
-            </p>
-        </div>
-    </article>
-    <article>
-        <figure>
-            <img src="/assets/img/grid-items" alt="Crear actividades">
-            <figcaption>
-                <b class="text-xl">Crear actividades</b>
-            </figcaption>
-        </figure>
-        <div class="info-text">
-            <p class="border-0 p-5">                    
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis veritatis tempora amet voluptatem omnis et sint delectus. Ut cupiditate quae magnam quam facere culpa, molestiae nihil magni, laboriosam, accusantium tenetur optio earum explicabo minus eaque adipisci quis dolorem veniam necessitatibus? Ducimus necessitatibus at magnam aut reiciendis eligendi accusantium et hic?
-            </p>
-            <p class="info-text-min">
-                Click para crear una actividad!
-                <a href="" title="Click para ser redirijido" class="menu1">
-                    <b>&nbsp; Aqui!</b>
-                </a>
+            <div class="info-text">
+                <p class="border-0 p-5">                    
+                </p>
+                <p class="info-text-min">
+                    Click para crear una actividad!
+                    <a href="{{ url_for('crear_actividad') }}" title="Click para ser redirigido" class="menu1">
+                        <b>&nbsp; Aquí!</b>
+                    </a>
+                </p>
             </div>
         </article>
         <article>
             <figure>
-                <img src="/assets/img/" alt="Ver mis actividaes">
+                <!-- <img src="/assets/img/" alt="Ver mis actividaes"> -->
                 <figcaption>
                     <b class="text-xl">Ver mis actividaes</b>
                 </figcaption>
             </figure>
             <div class="info-text">
                 <p class="border-0 p-5">                    
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, ab. Id in fugit consectetur voluptatem magnam nulla pariatur recusandae enim dolorum vero dolor animi porro laudantium est, beatae omnis similique ad nostrum, consequuntur repellendus! Culpa sed quisquam minus in aut blanditiis modi laboriosam ab ad esse, quidem nam, vero architecto?
                 </p>
                 <p class="info-text-min">
                     Click para ver mis activades
@@ -92,9 +97,9 @@
         </article>
         <article>
             <figure>
-                <img src="/assets/img/" alt="Calificar mis activades">
+                <img src="/assets/img/" alt="Calificar mis actividaes">
                 <figcaption>
-                    <b class="text-xl">Calificar mis activades</b>
+                    <b class="text-xl">Ver mis notas</b>
                 </figcaption>
             </figure>
             <div class="info-text">
@@ -102,12 +107,15 @@
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, ab. Id in fugit consectetur voluptatem magnam nulla pariatur recusandae enim dolorum vero dolor animi porro laudantium est, beatae omnis similique ad nostrum, consequuntur repellendus! Culpa sed quisquam minus in aut blanditiis modi laboriosam ab ad esse, quidem nam, vero architecto?
                 </p>
                 <p class="info-text-min">
-                    Click para calificar mis activades
-                    <a href="" title="Click para ser redirijido" class="menu1">
-                        <b>&nbsp; Aqui!</b>
+                    Click para calificar mis actividades
+                    <a href="{{ url_for('calificar_actividad', id_actividad=actividad_id) }}" title="Click para ser redirigido" class="menu1">
+                        <b>&nbsp; Aquí!</b>
                     </a>
-                </div>
+                </p>
+            </div>
         </article>
+        
+        
     </div>
 </div>    
 </main> 
